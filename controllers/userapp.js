@@ -4,7 +4,7 @@ const User = require("../models/usersapp");
 const register = async (req, res, next) => {
   
   try {
-    const { fname, lname, email, cgpa, address, course, university, isAdmin } = req.body;
+    const { fname, lname, email, cgpa, address, course, university, isAdmin, dob } = req.body;
     const cv = req.file.originalname
     const data = await User.findOne({ email });
 
@@ -18,7 +18,8 @@ const register = async (req, res, next) => {
         fname,
         lname,
         email,
-        cgpa, 
+        cgpa,
+        dob, 
         address, 
         course, 
         university,

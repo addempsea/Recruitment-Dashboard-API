@@ -9,6 +9,7 @@ const userSchema = new Schema({
     university: {type: String, required: true},
     cgpa: {type: Number, required: true},
     course: {type: String, required: true},
+    dob: {type: String, required: true},
     email: {type: String, required: true},
     isAdmin: {type: Boolean, default: false},
     cv: {type: String, required: true},
