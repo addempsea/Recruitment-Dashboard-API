@@ -4,7 +4,7 @@ let multer = require('multer');
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
   if (!allowedTypes.includes(file.mimetype)) {
-    const error = new Error("Incorrect file");
+    const error = new Error("Incorrect file type");
     error.code = "INCORRECT_FILETYPE";
     return cb(error, false)
   }
@@ -30,7 +30,8 @@ var storage = multer.diskStorage({
     if (file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
       filetype = 'docx';
     }
-    cb(null, file.originalname  + '.' + filetype);
+    console.log(filetype);
+    cb(null, file.originalname);
   }
 })
 
@@ -39,7 +40,6 @@ var upload = multer({
   limits: {
     fileSize: 1024 * 1024 * 5
   },
-
   fileFilter: fileFilter
 });
 

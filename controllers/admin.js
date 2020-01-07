@@ -8,8 +8,7 @@ const salt = 10;
 const register = async (req, res, next) => {
   
   try {
-    const { fname, lname, email, password, cgpa, address, course, university, isAdmin } = req.body;
-    const cv = req.file.originalname
+    const { name, email, password } = req.body;
     const data = await User.findOne({ email });
 
     if (data) {
@@ -20,16 +19,9 @@ const register = async (req, res, next) => {
     } else {
       const hash = await bcrypt.hash(password, salt);
       const newUser = new User({
-        fname,
-        lname,
+        name,
         password: hash,
-        email,
-        cgpa, 
-        address, 
-        course, 
-        university,
-        cv,
-        isAdmin
+        email
       });
       await newUser.save();
       return res.status(201).json({
@@ -59,7 +51,8 @@ const login = async(req, res, next) => {
                 const token = await jwt.sign({ isAdmin: data.isAdmin }, process.env.SECRET, { expiresIn: "7h" }) 
                 return res.status(200).json({
                     message: 'Login successful',
-                    token: token
+                    token: token,
+                    data: data
                 })
             }
         }
