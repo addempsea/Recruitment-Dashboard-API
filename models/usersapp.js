@@ -9,11 +9,10 @@ const userSchema = new Schema({
     university: {type: String, required: true},
     cgpa: {type: Number, required: true},
     course: {type: String, required: true},
-    password: {type: String, required: true},
     email: {type: String, required: true},
     isAdmin: {type: Boolean, default: false},
     cv: {type: String, required: true},
     createdAt: {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Userapp', userSchema);

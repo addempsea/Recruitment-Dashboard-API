@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const User = require("../models/admin");
+const User = require("../models/users");
 const dotenv = require("dotenv").config();
 const jwt = require('jsonwebtoken')
 const salt = 10;
@@ -8,7 +8,7 @@ const salt = 10;
 const register = async (req, res, next) => {
   
   try {
-    const { name, email, password } = req.body;
+    const { fname, lname, phone, email, password } = req.body;
     const data = await User.findOne({ email });
 
     if (data) {
@@ -19,9 +19,12 @@ const register = async (req, res, next) => {
     } else {
       const hash = await bcrypt.hash(password, salt);
       const newUser = new User({
-        name,
+        lname,
+        fname,
         password: hash,
-        email
+        email,
+        phone,
+        
       });
       await newUser.save();
       return res.status(201).json({
@@ -48,7 +51,7 @@ const login = async(req, res, next) => {
                     message: 'Invalid login details'
                 })
             } else {
-                const token = await jwt.sign({ isAdmin: data.isAdmin }, process.env.SECRET, { expiresIn: "7h" }) 
+                const token = await jwt.sign({ id: data._id }, process.env.SECRET, { expiresIn: "7h" }) 
                 return res.status(200).json({
                     message: 'Login successful',
                     token: token,
