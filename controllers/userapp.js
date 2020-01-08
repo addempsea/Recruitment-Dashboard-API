@@ -1,6 +1,6 @@
 const User = require("../models/usersapp");
 var nodemailer = require('nodemailer');
-var dotenv = require('dotenv').config()
+var dotenv = require('dotenv').config();
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -18,7 +18,7 @@ const register = async (req, res, next) => {
     const data = await User.findOne({ email });
 
     if (data) {
-      return res.status(400).json({
+      return res.status(409).json({
         message: `Application for ${email} has been received already`
       });
 
