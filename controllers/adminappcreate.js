@@ -31,4 +31,4 @@ const appCreate = async (req, res, next) => {
     }
 }
 
-module.exports = appCreate
+module.exports = { appCreate }
