@@ -69,7 +69,8 @@ const register = async (req, res, next) => {
 
 allApps = async (req, res, next) => {
   try {
-    const data = await User.find();
+    var mysort = { fname: 1 };
+    const data = await User.find().sort(mysort);
     return res.status(200).json({data})
     
   } catch (err) {

@@ -11,8 +11,8 @@ const fileFilter = (req, file, cb) => {
   cb(null, true);
 }
 
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", ];
+const fileFilters = (req, file, cb) => {
+  const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "image/jpeg", "image/jpg", "image/png"];
   if (!allowedTypes.includes(file.mimetype)) {
     const error = new Error("Incorrect file type");
     error.code = "INCORRECT_FILETYPE";
@@ -52,7 +52,7 @@ var uploadImage = multer({
   limits: {
     fileSize: 1024 * 1024 * 5
   },
-  fileFilter: fileFilter
+  fileFilter: fileFilters
 });
 
-module.exports = upload
+module.exports = {upload, uploadImage}
