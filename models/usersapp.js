@@ -13,6 +13,7 @@ const userSchema = new Schema({
     email: {type: String, required: true},
     isAdmin: {type: Boolean, default: false},
     cv: {type: String, required: true},
+    userId: {type: mongoose.Schema.Types.ObjectId, required: true},
     createdAt: {type: Date, default: Date.now}
 });
 

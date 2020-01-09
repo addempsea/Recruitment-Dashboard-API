@@ -15,6 +15,7 @@ const register = async (req, res, next) => {
   try {
     const { fname, lname, email, cgpa, address, course, university, isAdmin, dob } = req.body;
     const cv = req.file.originalname
+    const userId = req.user
     const data = await User.findOne({ email });
 
     if (data) {
@@ -33,6 +34,7 @@ const register = async (req, res, next) => {
         course,
         university,
         cv,
+        userId,
         isAdmin
       });
       await newUser.save();

@@ -1,7 +1,8 @@
 const Q = require('../models/questions');
 
 const postQ = async (req, res, next) => {
-    const { question, image, options, correctAns } = req.body;
+    const { question, options, correctAns } = req.body;
+    const image = 'http://localhost:3000/adminfile' + req.file.originalname;
     const right = options[correctAns]
 
     try {
@@ -43,7 +44,7 @@ const getQ = async (req, res, next) => {
         for (let i = 0; i < x.length; i++) {
             if (i != r) {
                 const data = await Q.find().limit(1).skip(r);
-                setInterval(data, 1)
+                
                 return res.status(200).json({ data })
                 
             }

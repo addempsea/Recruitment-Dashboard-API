@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/api/user/application', upload.upload.single('file'), control.register)
+router.post('/api/user/application', auth, upload.upload.single('file'), control.register)
 
 router.get('/api/user/:id', auth, controller.oneUser)
 
@@ -26,7 +26,7 @@ router.post('/api/admin/login', admincontroller.login)
 router.get('/api/admin/applications', auth, control.allApps)
 router.post('/api/admin/create', upload.uploadImage.single('file'), application.appCreate)
 
-router.post('/api/admin/question/create', Q.postQ)
+router.post('/api/admin/question/create', upload.uploadImage.single('file'), Q.postQ)
 router.get('/api/admin/questions', Q.getQ)
 
 module.exports = router;
