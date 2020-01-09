@@ -36,19 +36,8 @@ const getQ = async (req, res, next) => {
     try {
         const n = await Q.countDocuments();
         const r = await Math.floor(await Math.random() * n)
-        console.log(n + ' , ' + r);
-        const x = [];
-        await x.unshift(r)
-        console.log(x);
-        
-        for (let i = 0; i < x.length; i++) {
-            if (i != r) {
-                const data = await Q.find().limit(1).skip(r);
-                
-                return res.status(200).json({ data })
-                
-            }
-        }
+        const data = await Q.find().limit(1).skip(r);
+        return res.status(200).json({ data })
 
 
     } catch (err) {

@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
   try {
     const { fname, lname, email, cgpa, address, course, university, isAdmin, dob } = req.body;
     const cv = req.file.originalname
-    const userId = req.user
+    const userId = req.user.id
     const data = await User.findOne({ email });
 
     if (data) {
@@ -71,10 +71,17 @@ const register = async (req, res, next) => {
 
 allApps = async (req, res, next) => {
   try {
-    var mysort = { fname: 1 };
-    const data = await User.find().sort(mysort);
-    return res.status(200).json({data})
+    console.log(req.user);
     
+    if (req.user.isAdmin != true) {
+      res.status(401).json({
+        message: "You have to be an Admin"
+      })
+    } else {
+      var mysort = { fname: 1 };
+      const data = await User.find().sort(mysort);
+      return res.status(200).json({ data })
+    }
   } catch (err) {
     next(err)
   }
