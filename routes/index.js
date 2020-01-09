@@ -6,7 +6,8 @@ var controller = require('../controllers/useracc');
 var admincontroller = require('../controllers/adminacc');
 var auth = require('../middleware/token')
 var application = require('../controllers/adminappcreate');
-var Q = require('../controllers/question')
+var Q = require('../controllers/question');
+var A = require('../controllers/answer');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,5 +29,8 @@ router.post('/api/admin/create', upload.uploadImage.single('file'), application.
 
 router.post('/api/admin/question/create', upload.uploadImage.single('file'), Q.postQ)
 router.get('/api/admin/questions', Q.getQ)
+
+
+router.post('/api/user/question/submit', auth, A)
 
 module.exports = router;
