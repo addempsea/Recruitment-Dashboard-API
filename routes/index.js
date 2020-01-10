@@ -18,13 +18,13 @@ router.post('/api/user/application', auth, upload.upload.single('file'), control
 router.get('/api/user/:id', auth, controller.oneUser)
 router.post('/api/user/login', controller.login)
 router.post('/api/user/register', controller.register)
-router.put('/api/user/profilepic/:id', auth, controller.edit)
+router.put('/api/user/profilepic/:id', auth,  upload.uploadProfile.single('file'), controller.edit)
 
 
 
 router.post('/api/admin/register', admincontroller.register)
 router.post('/api/admin/login', admincontroller.login)
-router.put('/api/admin/profilepic/:id', auth, admincontroller.edit)
+router.put('/api/admin/profilepic/:id', auth, upload.uploadProfileAd.single('file'), admincontroller.edit)
 router.get('/api/user/:id', auth, admincontroller.oneUser)
 
 

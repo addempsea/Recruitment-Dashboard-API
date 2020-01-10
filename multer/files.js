@@ -89,4 +89,4 @@ var uploadProfileAd = multer({
   fileFilter: fileFilters
 });
 
-module.exports = {upload, uploadImage, uploadProfile, uploadProfile}
+module.exports = {upload, uploadImage, uploadProfile, uploadProfileAd}

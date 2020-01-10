@@ -95,7 +95,7 @@ const edit = async (req, res, next) => {
           const id = req.params.id
           const profpic = "http://localhost/userpics" + req.file.originalname
 
-          const datar = await item.findOneAndUpdate({ _id: id }, { $set: { profpic: profpic, } }, { new: true })
+          const datar = await User.findOneAndUpdate({ _id: id }, { $set: { profpic: profpic, } }, { new: true })
           await datar.save();
           return res.status(200).json({ message: "Profile Picture added successfully" });
       }
