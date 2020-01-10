@@ -15,20 +15,25 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/api/user/application', auth, upload.upload.single('file'), control.register)
-
 router.get('/api/user/:id', auth, controller.oneUser)
-
 router.post('/api/user/login', controller.login)
 router.post('/api/user/register', controller.register)
+router.put('/api/user/profilepic/:id', auth, controller.edit)
+
 
 
 router.post('/api/admin/register', admincontroller.register)
 router.post('/api/admin/login', admincontroller.login)
-router.get('/api/admin/applications', auth, control.allApps)
-router.post('/api/admin/create', upload.uploadImage.single('file'), application.appCreate)
+router.put('/api/admin/profilepic/:id', auth, admincontroller.edit)
+router.get('/api/user/:id', auth, admincontroller.oneUser)
 
-router.post('/api/admin/question/create', upload.uploadImage.single('file'), Q.postQ)
-router.get('/api/admin/questions', Q.getQ)
+
+
+router.get('/api/admin/applications', auth, control.allApps)
+router.post('/api/admin/create', auth, upload.uploadImage.single('file'), application.appCreate)
+
+router.post('/api/admin/question/create', auth, upload.uploadImage.single('file'), Q.postQ)
+router.get('/api/admin/questions', auth, Q.getQ)
 
 
 router.post('/api/user/question/submit', auth, A)

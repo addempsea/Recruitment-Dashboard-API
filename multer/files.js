@@ -39,6 +39,24 @@ var storage = multer.diskStorage({
   }
 })
 
+var storageprofile = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/userpics')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+})
+
+var storageprofileAd = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/adminpics')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+})
+
 var upload = multer({
   storage: storagedoc,
   limits: {
@@ -55,4 +73,20 @@ var uploadImage = multer({
   fileFilter: fileFilters
 });
 
-module.exports = {upload, uploadImage}
+var uploadProfile = multer({
+  storage: storageprofile,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilters
+});
+
+var uploadProfileAd = multer({
+  storage: storageprofileAd,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilters
+});
+
+module.exports = {upload, uploadImage, uploadProfile, uploadProfile}

@@ -1,8 +1,9 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/admin");
 const dotenv = require("dotenv").config();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const salt = 10;
+const Application = require('../models/usersapp')
 
 
 const register = async (req, res, next) => {
@@ -13,7 +14,7 @@ const register = async (req, res, next) => {
 
     if (data) {
       return res.status(409).json({
-        message: `${email} has been registered already`
+        message: `${email} is already an Admin`
       });
 
     } else {
@@ -61,5 +62,61 @@ const login = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  try {
+    if (req.user.isAdmin != true) {
+      res.status(401).json({
+        message: "You have to be an Admin"
+      })
+    } else {
+      const data = await User.findById(req.params.id);
 
-module.exports = { register, login };
+      if (!data) {
+        return res.status(401).json({
+          message: "No data for user with ID"
+        })
+
+      } else {
+        const id = req.params.id
+        const profpic = "http://localhost/adminpics" + req.file.originalname
+
+        const datar = await item.findOneAndUpdate({ _id: id }, { $set: { profpic: profpic, } }, { new: true })
+        await datar.save();
+        return res.status(200).json({ message: "Profile Picture added successfully" });
+      }
+    }
+  } catch (err) {
+    return next(err);
+  }
+
+};
+
+const oneUser = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    if (req.user.isAdmin != true) {
+      res.status(401).json({
+        message: "You have to be an Admin"
+      })
+    } else {
+      const count = await Application.countDocuments();
+      const data = await User.findOne({ _id: id });
+      if (!data) {
+        res.status(404).json({
+          message: "No user in the database"
+        });
+      } else {
+        res.status(200).json({
+          data,
+          count
+        });
+      }
+    }
+  } catch (err) {
+    next(err)
+  }
+};
+
+
+module.exports = { register, login, edit, oneUser };

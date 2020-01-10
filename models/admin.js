@@ -8,6 +8,7 @@ const userSchema = new Schema({
     max: [32, 'Too long, max is 32 characters']},
     email: {type: String, required: true},
     isAdmin: {type: Boolean, default: true},
+    profpic: {type: String}, 
     createdAt: {type: Date, default: Date.now}
 });
 

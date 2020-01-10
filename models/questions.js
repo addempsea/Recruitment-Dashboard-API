@@ -8,7 +8,8 @@ const userSchema = new Schema({
     options: {type: {}, default: undefined},
     correctAns: {type: Number},
     right: {type: String},
+    time: {type: Number},
     createdAt: {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('questions', userSchema);
+module.exports = mongoose.model('question', userSchema);

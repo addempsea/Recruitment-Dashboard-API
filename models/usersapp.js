@@ -14,6 +14,7 @@ const userSchema = new Schema({
     isAdmin: {type: Boolean, default: false},
     cv: {type: String, required: true},
     userId: {type: mongoose.Schema.Types.ObjectId, required: true},
+    score: {type: Number},
     createdAt: {type: Date, default: Date.now}
 });
 

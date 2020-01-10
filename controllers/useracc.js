@@ -80,7 +80,31 @@ const oneUser = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+};
+
+const edit = async (req, res, next) => {
+  try {
+      const data = await User.findById(req.params.id);
+      
+      if(!data) {
+          return res.status(401).json({
+              message: "No data for user with ID"
+          })
+
+      } else {
+          const id = req.params.id
+          const profpic = "http://localhost/userpics" + req.file.originalname
+
+          const datar = await item.findOneAndUpdate({ _id: id }, { $set: { profpic: profpic, } }, { new: true })
+          await datar.save();
+          return res.status(200).json({ message: "Profile Picture added successfully" });
+      }
+
+  } catch (err) {
+      return next(err);
+  }
+
 }
 
 
-module.exports = { register, login, oneUser};
+module.exports = { register, login, oneUser, edit};

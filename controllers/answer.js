@@ -3,7 +3,7 @@ const A = require('../models/answers');
 
 const Ans = async (req, res, next) => {
     try {
-        console.log(req.user);
+        console.log(req.user.id);
         
         const {questionId, answer} = req.body;
         const userId = req.user.id;

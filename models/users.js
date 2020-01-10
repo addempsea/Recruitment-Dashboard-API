@@ -10,6 +10,7 @@ const userSchema = new Schema({
     email: {type: String, required: true},
     isAdmin: {type: Boolean, default: false},
     accepted: {type: Boolean, default: false},
+    profpic: {type: String}, 
     createdAt: {type: Date, default: Date.now}
 });
 
