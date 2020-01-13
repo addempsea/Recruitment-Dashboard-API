@@ -1,4 +1,5 @@
 const Q = require("../models/questions");
+const A = require('../models/answers') 
 
 const postQ = async (req, res, next) => {
   const { question, options, correctAns } = req.body;
@@ -39,12 +40,21 @@ const postQ = async (req, res, next) => {
 
 const getQ = async (req, res, next) => {
   try {
-    const n = await Q.countDocuments();
-    const r = await Math.floor((await Math.random()) * n);
-    const data = await Q.find()
-      .limit(1)
-      .skip(r);
-    return res.status(200).json({ data });
+    const userId = req.user.id;
+    console.log(userId);
+    
+    const user = await A.findOne({userId: userId});
+    console.log(user);
+    
+    if(user.doneTest) {
+      res.status(400).json({
+        message: "you have taken the test already"
+      })
+    }else {
+      const data = await Q.find()
+        .limit(30)
+      return res.status(200).json({ data });
+    }
   } catch (err) {
     next(err);
   }

@@ -89,7 +89,7 @@ const edit = async (req, res, next) => {
       if(!data) {
           return res.status(401).json({
               message: "No data for user with ID"
-          })
+          });
 
       } else {
           const id = req.params.id
