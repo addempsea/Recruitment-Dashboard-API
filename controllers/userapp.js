@@ -85,7 +85,25 @@ allApps = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-}
+};
+
+const oneApp = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const data = await User.findOne({ _id: id });
+    if (!data) {
+      res.status(404).json({
+        message: "No user in the database"
+      });
+    } else {
+      res.status(200).json({
+        data
+      });
+    }
+  } catch (err) {
+    next(err)
+  }
+};
 
 
-module.exports = {register, allApps};
+module.exports = {register, allApps, oneApp};

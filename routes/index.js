@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/api/user/application', auth, upload.upload.single('file'), control.register)
+router.get('/api/user/application/:id', auth, control.oneApp)
 router.get('/api/user/:id', auth, controller.oneUser)
 router.post('/api/user/login', controller.login)
 router.post('/api/user/register', controller.register)
