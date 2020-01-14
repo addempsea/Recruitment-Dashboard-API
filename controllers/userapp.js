@@ -1,4 +1,5 @@
 const User = require("../models/usersapp");
+const A = require("../models/answers")
 var nodemailer = require('nodemailer');
 var dotenv = require('dotenv').config();
 
@@ -80,7 +81,7 @@ allApps = async (req, res, next) => {
     } else {
       var mysort = { fname: 1 };
       const data = await User.find().sort(mysort);
-      return res.status(200).json({ data })
+      return res.status(200).json({ data, score })
     }
   } catch (err) {
     next(err)

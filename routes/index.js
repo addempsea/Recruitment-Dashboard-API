@@ -26,7 +26,7 @@ router.put('/api/user/profilepic/:id', auth,  upload.uploadProfile.single('file'
 router.post('/api/admin/register', admincontroller.register)
 router.post('/api/admin/login', admincontroller.login)
 router.put('/api/admin/profilepic/:id', auth, upload.uploadProfileAd.single('file'), admincontroller.edit)
-router.get('/api/user/:id', auth, admincontroller.oneUser)
+// router.get('/api/user/:id', auth, admincontroller.oneUser)
 
 
 
