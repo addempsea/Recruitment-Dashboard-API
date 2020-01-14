@@ -46,14 +46,15 @@ const getQ = async (req, res, next) => {
     const user = await A.findOne({userId: userId});
     console.log(user);
     
-    if(user.doneTest) {
-      res.status(400).json({
-        message: "you have taken the test already"
-      })
-    }else {
+    if(user == null) {
       const data = await Q.find()
         .limit(30)
       return res.status(200).json({ data });
+      
+    }else {
+      res.status(400).json({
+        message: "you have taken the test already"
+      })
     }
   } catch (err) {
     next(err);

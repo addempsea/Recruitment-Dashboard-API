@@ -34,6 +34,7 @@ const Ans = async (req, res, next) => {
             o.unshift(answer[l])
 
         };
+        
         console.log(o);
         console.log(y);
         for (let l = 0; l < o.length; l++) {
@@ -52,11 +53,6 @@ const Ans = async (req, res, next) => {
             }
 
         }
-        
-       
-        
-    
-        
 
         newA = new A({
         answer,
