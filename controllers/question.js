@@ -44,12 +44,23 @@ const getQ = async (req, res, next) => {
     console.log(userId);
     
     const user = await A.findOne({userId: userId});
-    console.log(user);
+    
+
+    function shuffle (array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    const data = await Q.find().limit(30);
+    
+  
+    const sorted = await shuffle(data)
+    console.log(sorted);
+    
+
     
     if(user == null) {
-      const data = await Q.find()
-        .limit(30)
-      return res.status(200).json({ data });
+      
+      return res.status(200).json({sorted});
       
     }else {
       res.status(400).json({
