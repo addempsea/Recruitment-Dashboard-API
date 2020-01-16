@@ -81,20 +81,24 @@ allApps = async (req, res, next) => {
     } else {
       var mysort = { fname: 1 };
       const data = await User.find().sort(mysort);
-      return res.status(200).json({ data, score })
+      return res.status(200).json({ data })
     }
   } catch (err) {
     next(err)
+    console.log(err);
+    
   }
 };
 
 const oneApp = async (req, res, next) => {
   const id = req.params.id;
   try {
+    console.log(id);
+    
     const data = await User.findOne({ _id: id });
     if (!data) {
       res.status(404).json({
-        message: "No user in the database"
+        message: "No user on the database"
       });
     } else {
       res.status(200).json({

@@ -25,12 +25,13 @@ router.put('/api/user/profilepic/:id', auth,  upload.uploadProfile.single('file'
 
 router.post('/api/admin/register', admincontroller.register)
 router.post('/api/admin/login', admincontroller.login)
+router.get('/api/admin/:id', auth, admincontroller.oneUser)
 router.put('/api/admin/profilepic/:id', auth, upload.uploadProfileAd.single('file'), admincontroller.edit)
 // router.get('/api/user/:id', auth, admincontroller.oneUser)
 
 
 
-router.get('/api/admin/applications', auth, control.allApps)
+router.get('/api/applications', auth, control.allApps)
 router.post('/api/admin/create', auth, upload.uploadImage.single('file'), application.appCreate)
 
 router.post('/api/admin/question/create', auth, upload.uploadImage.single('file'), Q.postQ)

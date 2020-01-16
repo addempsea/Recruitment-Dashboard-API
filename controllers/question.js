@@ -51,7 +51,7 @@ const getQ = async (req, res, next) => {
     }
 
     const data = await Q.find().limit(30);
-    
+
   
     const sorted = await shuffle(data)
     console.log(sorted);

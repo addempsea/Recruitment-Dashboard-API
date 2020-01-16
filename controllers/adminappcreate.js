@@ -10,7 +10,7 @@ const appCreate = async (req, res, next) => {
         } else {
             const { link, batch_id, closing_date, instructions } = req.body;
             const file = req.file.originalname
-            const data = await User.findOne({ batch_id });
+            const data = await Application.findOne({ batch_id });
 
             if (data) {
                 return res.status(409).json({

@@ -9,7 +9,7 @@ const Application = require('../models/usersapp')
 const register = async (req, res, next) => {
 
   try {
-    const { name, email, password } = req.body;
+    const { lname, fname, email, password } = req.body;
     const data = await User.findOne({ email });
 
     if (data) {
@@ -20,7 +20,8 @@ const register = async (req, res, next) => {
     } else {
       const hash = await bcrypt.hash(password, salt);
       const newUser = new User({
-        name,
+        lname,
+        fname,
         password: hash,
         email
       });
