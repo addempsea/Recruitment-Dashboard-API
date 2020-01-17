@@ -93,7 +93,7 @@ const edit = async (req, res, next) => {
 
       } else {
           const id = req.params.id
-          const profpic = "http://localhost/userpics" + req.file.originalname
+          const profpic = "http://localhost:3000/userpics/" + req.file.originalname
 
           const datar = await User.findOneAndUpdate({ _id: id }, { $set: { profpic: profpic, } }, { new: true })
           await datar.save();

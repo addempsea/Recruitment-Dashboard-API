@@ -63,7 +63,7 @@ const getQ = async (req, res, next) => {
       return res.status(200).json({sorted});
       
     }else {
-      res.status(400).json({
+      res.status(200).json({
         message: "you have taken the test already"
       })
     }
