@@ -40,4 +40,6 @@ router.get('/api/questions', auth, Q.getQ)
 
 router.post('/api/user/question/submit', auth, A)
 
+router.get('/api/scores', auth, control.appWithScore)
+
 module.exports = router;

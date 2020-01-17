@@ -8,7 +8,8 @@ const userSchema = new Schema({
     doneTest: {type: Boolean, required: true, default: false},
     questionId: {type: {type: mongoose.Schema.Types.ObjectId}},
     userId: {type: mongoose.Schema.Types.ObjectId},
-    createdAt: {type: Date, default: Date.now}
+    createdAt: {type: Date, default: Date.now},
+    userProfile: {type: {}}
 });
 
 module.exports = mongoose.model('UserAns', userSchema);

@@ -110,5 +110,24 @@ const oneApp = async (req, res, next) => {
   }
 };
 
+const appWithScore = async (req, res, next) => {
+  try {
+    if (req.user.isAdmin != true) {
+      res.status(401).json({
+        message: "You have to be an Admin"
+      })
+    } else {
+      var mysort = { score: -1 };
+      const answers = await A.find().sort(mysort);
+      console.log(answers);
 
-module.exports = {register, allApps, oneApp};
+      res.status(200).json({answers})
+    }
+  } catch (err) {
+    next(err)
+  }
+
+}
+
+
+module.exports = {register, allApps, oneApp, appWithScore};
