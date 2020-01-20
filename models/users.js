@@ -11,6 +11,7 @@ const userSchema = new Schema({
     isAdmin: {type: Boolean, default: false},
     accepted: {type: Boolean, default: false},
     profpic: {type: String}, 
+    hasApplied: {type: Boolean},
     createdAt: {type: Date, default: Date.now}
 });
 

@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/users");
+const A = require('../models/usersapp')
 const dotenv = require("dotenv").config();
 const jwt = require('jsonwebtoken')
 const salt = 10;
@@ -10,6 +11,7 @@ const register = async (req, res, next) => {
   try {
     const { fname, lname, phone, email, password } = req.body;
     const data = await User.findOne({ email });
+    
 
     if (data) {
       return res.status(400).json({
@@ -40,6 +42,13 @@ const login = async(req, res, next) => {
     const { email, password } = req.body;
     try {
         const data = await User.findOne({ email });
+        const applied =  await A.findOne({ email })
+        var hasApplied = ""
+        if (applied) {
+          hasApplied = true
+        } else {
+          hasApplied = false
+        }
         if (!data) {
             return res.status(403).json({
                 message: email + ' is not associated with any account'
@@ -51,11 +60,12 @@ const login = async(req, res, next) => {
                     message: 'Invalid login details'
                 })
             } else {
-                const token = await jwt.sign({ id: data._id }, process.env.SECRET, { expiresIn: "7h" }) 
+                const token = await jwt.sign({ id: data._id }, process.env.SECRET, { expiresIn: "17h" }) 
                 return res.status(200).json({
                     message: 'Login successful',
                     token: token,
-                    data: data
+                    data: data,
+                    hasApplied
                 })
             }
         }
