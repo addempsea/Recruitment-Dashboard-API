@@ -40,13 +40,7 @@ const appCreate = async (req, res, next) => {
 const batches = async (req, res, next) => {
     try {
         const data = await Application.find();
-        if (req.user.isAdmin != true) {
-            res.status(401).json({
-                message: "You have to be an Admin"
-            })
-        } else {
-            res.status(200).json({data})
-        }
+        res.status(200).json({data})
     } catch (err) {
         next(err)
     }

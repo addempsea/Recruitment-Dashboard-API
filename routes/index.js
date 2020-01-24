@@ -33,7 +33,7 @@ router.put('/api/admin/profilepic/:id', auth, upload.uploadProfileAd.single('fil
 
 router.get('/api/applications', auth, control.allApps)
 router.post('/api/admin/create', auth, upload.uploadImage.single('file'), application.appCreate)
-router.get('/api/batches', auth, application.batches)
+router.get('/api/batches', application.batches)
 
 router.post('/api/admin/question/create', auth, upload.uploadImage.single('file'), Q.postQ)
 router.get('/api/questions', auth, Q.getQ)
