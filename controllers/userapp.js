@@ -95,7 +95,7 @@ const oneApp = async (req, res, next) => {
   try {
     console.log(id);
     
-    const data = await User.findOne({ _id: id });
+    const data = await User.findOne({userId: id });
     if (!data) {
       res.status(404).json({
         message: "No user on the database"
