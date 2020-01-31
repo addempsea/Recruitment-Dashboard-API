@@ -19,6 +19,8 @@ router.get('/api/application/:id', auth, control.oneApp)
 router.get('/api/user/:id', auth, controller.oneUser)
 router.post('/api/user/login', controller.login)
 router.post('/api/user/register', controller.register)
+router.get('/verify', controller.verify)
+router.put('/verify', controller.verify)
 router.put('/api/user/profilepic/:id', auth,  upload.uploadProfile.single('file'), controller.edit)
 
 

@@ -12,6 +12,8 @@ const userSchema = new Schema({
     accepted: {type: Boolean, default: false},
     profpic: {type: String}, 
     hasApplied: {type: Boolean},
+    isVerified: {type: Boolean, default: false},
+    token: {type: String},
     createdAt: {type: Date, default: Date.now}
 });
 

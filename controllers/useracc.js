@@ -4,13 +4,24 @@ const A = require('../models/usersapp')
 const dotenv = require("dotenv").config();
 const jwt = require('jsonwebtoken')
 const salt = 10;
+var nodemailer = require('nodemailer');
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: `${process.env.EMAIL}`,
+    pass: `${process.env.PASSWORD}`
+  }
+});
 
 const register = async (req, res, next) => {
   
   try {
     const { fname, lname, phone, email, password } = req.body;
     const data = await User.findOne({ email });
+    const token = await jwt.sign({ id: email }, process.env.SECRET)
+    console.log(token);
+     
     
 
     if (data) {
@@ -26,11 +37,35 @@ const register = async (req, res, next) => {
         password: hash,
         email,
         phone,
-        
+        token
       });
       await newUser.save();
+
+      const content = `
+            <p>Dear ${fname},</p>
+            <p>Thank you for your interest in a career opportunity at Enyata.</p>
+            <p>Kindly click on the link to confirm your account <a href='http://localhost:3000/verify?token=${token}'>Click here</a> </p>
+            <br>
+            <p>Enyata Recruitment Team</p>`
+
+
+      var mailOptions = {
+        from: '"Enyata Academy" <babatundeademola4@gmail.com>',
+        to: `${email}`,
+        subject: 'Confirm your Email',
+        html: content
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      })
+
       return res.status(201).json({
-                message: 'Thank you for signing up, proceed to login',
+                message: 'Thank you for signing up, check your email for confirmation link',
             })
     }
   } catch (err) {
@@ -52,6 +87,10 @@ const login = async(req, res, next) => {
         if (!data) {
             return res.status(403).json({
                 message: email + ' is not associated with any account'
+            })
+        } else if(!data.isVerified) {
+            return res.status(403).json({
+              message: email + ' is not verified'
             })
         } else {
             const match = await bcrypt.compare(password, data.password);
@@ -116,5 +155,26 @@ const edit = async (req, res, next) => {
 
 }
 
+const verify = async (req, res, next) => {
+  try {
+    console.log(req.query.token);
+    
+    const data = await User.findOne({token: req.query.token});
+    if(!data) {
+      return res.status(404).json({
+          message: "No data found"
+      });
+    } else {
+      const toke = req.query
+      const datar = await User.findOneAndUpdate({ token: toke.token }, { $set: { isVerified: true, } }, { new: true })
+      await datar.save();
+      return res.status(200).send("Email confirmed, Proceed to login")
+    }
+    
+  } catch (err) {
+    next(err)
+  }
+}
 
-module.exports = { register, login, oneUser, edit};
+
+module.exports = { register, login, oneUser, edit, verify};
